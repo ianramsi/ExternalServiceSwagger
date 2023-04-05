@@ -1,0 +1,104 @@
+swagger: '2.0'
+info:
+  description: API to Verify Phone Number
+  title: Number Verify
+  version: v1
+  termsOfService: "https://numverify.com/"
+  contact:
+    email: "ian@langitkreasi.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
+host: apilayer.net
+schemes:
+  - http
+basePath: /api
+
+paths:
+  /validate:
+    get:
+      produces:
+        - application/json
+      summary: Validate Phone
+      parameters:
+        - in: query
+          name: access_key
+          type: string
+          required: true
+        - in: query
+          name: number
+          type: string
+          required: true
+        - in: query
+          name: country_code
+          required: true
+          type: string
+        - in: query
+          name: format
+          type: number
+          required: true
+          default: 1
+          
+      responses:
+        '200':
+          description: Success Response
+          schema:
+            $ref: '#/definitions/responsefromAPI'
+        '400':
+          description: node access token
+          schema: 
+            type: object
+            example: {
+                        "code": "Invalid Credentials",
+                        "message": "you have to be logged before perform this action."
+                    }
+        '401':
+          description: Invalid Credential
+          schema:
+            type: object
+            example: {
+                        "code": "Unatuhorized Acess",
+                        "message": "get correct Credential from your administrator!!"
+                    }
+
+definitions:
+    responsefromAPI:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          example: true
+        number:
+          type: string
+        international_format:
+          type: string
+          example: +628111079778
+        local_format:
+          type: string
+          example: 08111079778
+        country_prefix:
+          type: string
+        country_name:
+          type: string
+        location:
+          type: string
+        carrier:
+          type: string
+        line_type:
+          type: string
+        error:
+          type: object
+          properties:
+            code:
+              type: number
+              example: 101
+            type:
+              type: string
+              example: invalid_access_key
+            info:
+              type: string
+              example: "You have not supllied with correct access key. Please check numverify.com"
+externalDocs:
+  description: "this is from numverify api"
+  url: "https://numvarofy.com"
