@@ -1,0 +1,91 @@
+swagger: '2.0'
+info:
+  description: API to Verify Email
+  title: Email Verify
+  version: v1
+  termsOfService: "https://app.abstractapi.com/"
+  contact:
+    email: "ian@langitkreasi.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
+host: emailvalidation.abstractapi.com
+schemes:
+  - https
+basePath: /v1
+
+paths:
+  /:
+    get:
+      produces:
+        - application/json
+      summary: Validate Email
+      parameters:
+        - in: query
+          name: api_key
+          type: string
+          required: true
+        - in: query
+          name: email
+          type: string
+          required: true
+          
+      responses:
+        '200':
+          description: Success Response
+          schema:
+            $ref: '#/definitions/responsefromAPI'
+        '400':
+          description: node access token
+          schema: 
+            type: object
+            example: {
+                        "code": "Invalid Credentials",
+                        "message": "you have to be logged before perform this action."
+                    }
+        '401':
+          description: Invalid Credential
+          schema:
+            type: object
+            example: {
+                        "code": "Unatuhorized Acess",
+                        "message": "get correct Credential from your administrator!!"
+                    }
+
+definitions:
+    responsefromAPI:
+      type: object
+      properties:
+        email:
+          type: string
+          example: ian@langitkreasi.com
+        deliverability:
+          type: string
+        quality_socre:
+          type: string
+        is_valid_format:
+          type: object
+          properties:
+            value:
+              type: boolean
+            text:
+              type: string
+        is_free_email:
+          type: object
+          properties:
+            value:
+              type: boolean
+            text:
+              type: string
+        is_smtp_valid:
+          type: object
+          properties:
+            value:
+              type: boolean
+            text:
+              type: string
+
+externalDocs:
+  description: "this is from Abstract API"
+  url: "https://www.abstractapi.com"
