@@ -101,4 +101,4 @@ definitions:
               example: "You have not supllied with correct access key. Please check numverify.com"
 externalDocs:
   description: "this is from numverify api"
-  url: "https://numvarofy.com"
+  url: "https://numverify.com"
